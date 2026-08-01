@@ -21,6 +21,10 @@ export class Home {
     if (!this.isValidUrl()) {
       return;
     }
+    this.navigateToProcessingPage();
+  }
+
+  private navigateToProcessingPage(): void {
     const jobId = crypto.randomUUID();
     this.router.navigate(['/processing', jobId], {
       queryParams: { url: this.videoUrl().trim() },
