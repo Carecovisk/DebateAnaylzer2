@@ -1,0 +1,12 @@
+/Users/joaovictorribeirosantos/Projects/DebateAnaylzer2/App.ServiceDefaults/bin/Debug/net10.0/App.ServiceDefaults.deps.json
+/Users/joaovictorribeirosantos/Projects/DebateAnaylzer2/App.ServiceDefaults/bin/Debug/net10.0/App.ServiceDefaults.dll
+/Users/joaovictorribeirosantos/Projects/DebateAnaylzer2/App.ServiceDefaults/bin/Debug/net10.0/App.ServiceDefaults.pdb
+/Users/joaovictorribeirosantos/Projects/DebateAnaylzer2/App.ServiceDefaults/obj/Debug/net10.0/App.ServiceDefaults.csproj.AssemblyReference.cache
+/Users/joaovictorribeirosantos/Projects/DebateAnaylzer2/App.ServiceDefaults/obj/Debug/net10.0/App.ServiceDefaults.GeneratedMSBuildEditorConfig.editorconfig
+/Users/joaovictorribeirosantos/Projects/DebateAnaylzer2/App.ServiceDefaults/obj/Debug/net10.0/App.ServiceDefaults.AssemblyInfoInputs.cache
+/Users/joaovictorribeirosantos/Projects/DebateAnaylzer2/App.ServiceDefaults/obj/Debug/net10.0/App.ServiceDefaults.AssemblyInfo.cs
+/Users/joaovictorribeirosantos/Projects/DebateAnaylzer2/App.ServiceDefaults/obj/Debug/net10.0/App.ServiceDefaults.csproj.CoreCompileInputs.cache
+/Users/joaovictorribeirosantos/Projects/DebateAnaylzer2/App.ServiceDefaults/obj/Debug/net10.0/App.ServiceDefaults.dll
+/Users/joaovictorribeirosantos/Projects/DebateAnaylzer2/App.ServiceDefaults/obj/Debug/net10.0/refint/App.ServiceDefaults.dll
+/Users/joaovictorribeirosantos/Projects/DebateAnaylzer2/App.ServiceDefaults/obj/Debug/net10.0/App.ServiceDefaults.pdb
+/Users/joaovictorribeirosantos/Projects/DebateAnaylzer2/App.ServiceDefaults/obj/Debug/net10.0/ref/App.ServiceDefaults.dll
