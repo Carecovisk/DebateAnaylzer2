@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "https": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "https://debateanaylizer.dev.localhost:17092;http://debateanaylizer.dev.localhost:15171",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DOTNET_ENVIRONMENT": "Development",
+        "ASPIRE_DASHBOARD_OTLP_ENDPOINT_URL": "https://debateanaylizer.dev.localhost:21010",
+        "ASPIRE_RESOURCE_SERVICE_ENDPOINT_URL": "https://debateanaylizer.dev.localhost:22216"
+      }
+    },
+    "http": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "http://debateanaylizer.dev.localhost:15171",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DOTNET_ENVIRONMENT": "Development",
+        "ASPIRE_DASHBOARD_OTLP_ENDPOINT_URL": "http://debateanaylizer.dev.localhost:19078",
+        "ASPIRE_RESOURCE_SERVICE_ENDPOINT_URL": "http://debateanaylizer.dev.localhost:20040",
+        "ASPIRE_ALLOW_UNSECURED_TRANSPORT": "true"
+      }
+    }
+  }
+}
