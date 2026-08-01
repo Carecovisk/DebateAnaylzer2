@@ -1,0 +1,101 @@
+<main
+  class="relative flex min-h-dvh items-center justify-center overflow-hidden bg-slate-950 px-6 py-24"
+>
+  <!-- ambient gradient glows -->
+  <div class="pointer-events-none absolute inset-0">
+    <div
+      class="absolute -top-40 -left-32 h-[32rem] w-[32rem] rounded-full bg-indigo-600/40 blur-3xl"
+    ></div>
+    <div
+      class="absolute -bottom-48 -right-24 h-[36rem] w-[36rem] rounded-full bg-fuchsia-600/30 blur-3xl"
+    ></div>
+  </div>
+
+  <div class="relative z-10 mx-auto flex w-full max-w-xl flex-col items-center text-center">
+    <div class="relative flex h-20 w-20 items-center justify-center">
+      <span
+        class="absolute inline-flex h-full w-full animate-ping rounded-full bg-indigo-500/40"
+      ></span>
+      <span
+        class="relative inline-flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-fuchsia-500"
+      >
+        <svg
+          class="h-7 w-7 animate-spin text-white"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+          ></path>
+        </svg>
+      </span>
+    </div>
+
+    <h1 class="mt-8 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+      Analyzing your debate
+    </h1>
+
+    @if (videoUrl()) {
+      <p class="mt-3 max-w-md truncate text-sm text-slate-400">{{ videoUrl() }}</p>
+    }
+
+    <div class="mt-10 w-full">
+      <div class="h-2 w-full overflow-hidden rounded-full bg-white/10">
+        <div
+          class="h-full rounded-full bg-gradient-to-r from-indigo-500 to-fuchsia-500 transition-all duration-700 ease-out"
+          [style.width.%]="status()?.progressPercent ?? 0"
+        ></div>
+      </div>
+    </div>
+
+    <ul class="mt-10 w-full space-y-3 text-left">
+      @for (stage of stages; track stage.id) {
+        <li
+          [class]="
+            'flex items-center gap-3 rounded-xl border bg-white/5 px-4 py-3 backdrop-blur transition ' +
+            (stageState(stage.id) === 'active' ? 'border-indigo-400/60' : 'border-white/10')
+          "
+        >
+          @switch (stageState(stage.id)) {
+            @case ('done') {
+              <span
+                class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400"
+              >
+                <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.704 5.29a1 1 0 010 1.415l-7.5 7.5a1 1 0 01-1.415 0l-3.5-3.5a1 1 0 111.415-1.415L8.5 12.086l6.79-6.796a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            }
+            @case ('active') {
+              <span class="relative flex h-6 w-6 shrink-0 items-center justify-center">
+                <span class="absolute h-6 w-6 animate-ping rounded-full bg-indigo-500/40"></span>
+                <span class="relative h-3 w-3 rounded-full bg-indigo-400"></span>
+              </span>
+            }
+            @default {
+              <span class="h-6 w-6 shrink-0 rounded-full border border-white/20"></span>
+            }
+          }
+
+          <span
+            class="text-sm"
+            [class.text-white]="stageState(stage.id) !== 'pending'"
+            [class.text-slate-500]="stageState(stage.id) === 'pending'"
+          >
+            {{ stage.label }}
+          </span>
+        </li>
+      }
+    </ul>
+
+    <p class="mt-8 text-xs text-slate-500">This usually takes a couple of minutes.</p>
+  </div>
+</main>
