@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\App.ServiceDefaults\App.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\DebateAnalyzer.Application\DebateAnalyzer.Application.csproj" />
+    <ProjectReference Include="..\DebateAnalyzer.Infrastructure\DebateAnalyzer.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
