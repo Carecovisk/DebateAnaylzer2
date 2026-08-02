@@ -23,7 +23,7 @@ if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddCors(options =>
         options.AddPolicy(WebClientCorsPolicy, policy => policy
-            .WithOrigins("http://localhost:4200")
+            .AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader()));
 }
