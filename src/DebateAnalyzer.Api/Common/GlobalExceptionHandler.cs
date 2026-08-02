@@ -33,6 +33,11 @@ public class GlobalExceptionHandler : IExceptionHandler
             return BuildMetadataUnavailableProblem(metadataException);
         }
 
+        if (exception is AnalysisNotFoundException notFoundException)
+        {
+            return BuildAnalysisNotFoundProblem(notFoundException);
+        }
+
         return null;
     }
 
@@ -70,6 +75,14 @@ public class GlobalExceptionHandler : IExceptionHandler
         {
             Status = StatusCodes.Status422UnprocessableEntity,
             Title = "Video metadata could not be retrieved.",
+            Detail = exception.Message
+        };
+
+    private static ProblemDetails BuildAnalysisNotFoundProblem(AnalysisNotFoundException exception)
+        => new()
+        {
+            Status = StatusCodes.Status404NotFound,
+            Title = "Analysis not found.",
             Detail = exception.Message
         };
 }

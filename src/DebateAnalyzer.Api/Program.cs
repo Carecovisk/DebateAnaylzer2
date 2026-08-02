@@ -1,8 +1,11 @@
+using System.Text.Json.Serialization;
 using Asp.Versioning;
 using DebateAnalyzer.Api.Analyses;
 using DebateAnalyzer.Api.Common;
 using DebateAnalyzer.Application;
 using DebateAnalyzer.Infrastructure;
+
+const string WebClientCorsPolicy = "WebClient";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +15,18 @@ builder.Services.AddApplication(builder.Configuration);
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
+
+builder.Services.ConfigureHttpJsonOptions(options =>
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddCors(options =>
+        options.AddPolicy(WebClientCorsPolicy, policy => policy
+            .WithOrigins("http://localhost:4200")
+            .AllowAnyMethod()
+            .AllowAnyHeader()));
+}
 
 builder.Services
     .AddApiVersioning(options =>
@@ -42,6 +57,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.UseSwaggerUI(options =>
         options.SwaggerEndpoint("/openapi/v1.json", "DebateAnalyzer API v1"));
+    app.UseCors(WebClientCorsPolicy);
 }
 
 app.UseHttpsRedirection();
