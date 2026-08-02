@@ -19,6 +19,11 @@ builder.Services
         options.DefaultApiVersion = new ApiVersion(1);
         options.AssumeDefaultVersionWhenUnspecified = true;
         options.ReportApiVersions = true;
+    })
+    .AddApiExplorer(options =>
+    {
+        options.GroupNameFormat = "'v'VVV";
+        options.SubstituteApiVersionInUrl = true;
     });
 
 // Add services to the container.
