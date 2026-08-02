@@ -17,6 +17,7 @@ export class Processing implements OnInit {
   protected readonly stages: readonly ProcessingStage[] = PROCESSING_STAGES;
   protected readonly videoUrl = signal(this.route.snapshot.queryParamMap.get('url') ?? '');
   protected readonly status = signal<ProcessingStatus | null>(null);
+  protected readonly pollingError = signal(false);
 
   protected stageState(stageId: ProcessingStage['id']): StageState {
     return this.status()?.stageStates[stageId] ?? 'pending';
@@ -34,7 +35,15 @@ export class Processing implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (status) => this.status.set(status),
-        complete: () => this.router.navigate(['/results', jobId]),
+        complete: () => this.handlePollingComplete(jobId),
+        error: () => this.pollingError.set(true),
       });
+  }
+
+  private handlePollingComplete(jobId: string): void {
+    if (this.status()?.failed) {
+      return;
+    }
+    this.router.navigate(['/results', jobId]);
   }
 }

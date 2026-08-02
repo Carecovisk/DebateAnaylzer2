@@ -43,59 +43,73 @@
       <p class="mt-3 max-w-md truncate text-sm text-slate-400">{{ videoUrl() }}</p>
     }
 
-    <div class="mt-10 w-full">
-      <div class="h-2 w-full overflow-hidden rounded-full bg-white/10">
-        <div
-          class="h-full rounded-full bg-gradient-to-r from-indigo-500 to-fuchsia-500 transition-all duration-700 ease-out"
-          [style.width.%]="status()?.progressPercent ?? 0"
-        ></div>
+    @if (status()?.failed) {
+      <div class="mt-10 w-full rounded-xl border border-rose-400/40 bg-rose-500/10 px-4 py-3 text-left">
+        <p class="text-sm font-medium text-rose-300">Analysis failed</p>
+        <p class="mt-1 text-sm text-rose-400">
+          {{ status()?.errorMessage ?? 'Something went wrong while analyzing this video.' }}
+        </p>
       </div>
-    </div>
+    } @else if (pollingError()) {
+      <div class="mt-10 w-full rounded-xl border border-rose-400/40 bg-rose-500/10 px-4 py-3 text-left">
+        <p class="text-sm font-medium text-rose-300">Lost connection to the server</p>
+        <p class="mt-1 text-sm text-rose-400">Please refresh the page to try again.</p>
+      </div>
+    } @else {
+      <div class="mt-10 w-full">
+        <div class="h-2 w-full overflow-hidden rounded-full bg-white/10">
+          <div
+            class="h-full rounded-full bg-gradient-to-r from-indigo-500 to-fuchsia-500 transition-all duration-700 ease-out"
+            [style.width.%]="status()?.progressPercent ?? 0"
+          ></div>
+        </div>
+      </div>
 
-    <ul class="mt-10 w-full space-y-3 text-left">
-      @for (stage of stages; track stage.id) {
-        <li
-          [class]="
-            'flex items-center gap-3 rounded-xl border bg-white/5 px-4 py-3 backdrop-blur transition ' +
-            (stageState(stage.id) === 'active' ? 'border-indigo-400/60' : 'border-white/10')
-          "
-        >
-          @switch (stageState(stage.id)) {
-            @case ('done') {
-              <span
-                class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400"
-              >
-                <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                  <path
-                    fill-rule="evenodd"
-                    d="M16.704 5.29a1 1 0 010 1.415l-7.5 7.5a1 1 0 01-1.415 0l-3.5-3.5a1 1 0 111.415-1.415L8.5 12.086l6.79-6.796a1 1 0 011.414 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            }
-            @case ('active') {
-              <span class="relative flex h-6 w-6 shrink-0 items-center justify-center">
-                <span class="absolute h-6 w-6 animate-ping rounded-full bg-indigo-500/40"></span>
-                <span class="relative h-3 w-3 rounded-full bg-indigo-400"></span>
-              </span>
-            }
-            @default {
-              <span class="h-6 w-6 shrink-0 rounded-full border border-white/20"></span>
-            }
-          }
-
-          <span
-            class="text-sm"
-            [class.text-white]="stageState(stage.id) !== 'pending'"
-            [class.text-slate-500]="stageState(stage.id) === 'pending'"
+      <ul class="mt-10 w-full space-y-3 text-left">
+        @for (stage of stages; track stage.id) {
+          <li
+            [class]="
+              'flex items-center gap-3 rounded-xl border bg-white/5 px-4 py-3 backdrop-blur transition ' +
+              (stageState(stage.id) === 'active' ? 'border-indigo-400/60' : 'border-white/10')
+            "
           >
-            {{ stage.label }}
-          </span>
-        </li>
-      }
-    </ul>
+            @switch (stageState(stage.id)) {
+              @case ('done') {
+                <span
+                  class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400"
+                >
+                  <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.704 5.29a1 1 0 010 1.415l-7.5 7.5a1 1 0 01-1.415 0l-3.5-3.5a1 1 0 111.415-1.415L8.5 12.086l6.79-6.796a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              }
+              @case ('active') {
+                <span class="relative flex h-6 w-6 shrink-0 items-center justify-center">
+                  <span class="absolute h-6 w-6 animate-ping rounded-full bg-indigo-500/40"></span>
+                  <span class="relative h-3 w-3 rounded-full bg-indigo-400"></span>
+                </span>
+              }
+              @default {
+                <span class="h-6 w-6 shrink-0 rounded-full border border-white/20"></span>
+              }
+            }
 
-    <p class="mt-8 text-xs text-slate-500">This usually takes a couple of minutes.</p>
+            <span
+              class="text-sm"
+              [class.text-white]="stageState(stage.id) !== 'pending'"
+              [class.text-slate-500]="stageState(stage.id) === 'pending'"
+            >
+              {{ stage.label }}
+            </span>
+          </li>
+        }
+      </ul>
+
+      <p class="mt-8 text-xs text-slate-500">This usually takes a couple of minutes.</p>
+    }
   </div>
 </main>

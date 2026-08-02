@@ -1,6 +1,7 @@
 using Asp.Versioning;
 using Asp.Versioning.Builder;
 using DebateAnalyzer.Application.Analyses.Commands.SubmitAnalysis;
+using DebateAnalyzer.Application.Analyses.Queries.GetAnalysisStatus;
 using MediatR;
 
 namespace DebateAnalyzer.Api.Analyses;
@@ -15,6 +16,7 @@ public static class AnalysesEndpoints
             .WithApiVersionSet(versionSet);
 
         group.MapPost("/", SubmitAnalysis);
+        group.MapGet("/{id:guid}", GetAnalysisStatus);
 
         return app;
     }
@@ -32,5 +34,14 @@ public static class AnalysesEndpoints
         var result = await sender.Send(command, cancellationToken);
 
         return Results.Created($"/api/v1/analyses/{result.Id}", result);
+    }
+
+    private static async Task<IResult> GetAnalysisStatus(
+        Guid id, ISender sender, CancellationToken cancellationToken)
+    {
+        var query = new GetAnalysisStatusQuery(id);
+        var result = await sender.Send(query, cancellationToken);
+
+        return Results.Ok(result);
     }
 }

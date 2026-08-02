@@ -1,9 +1,4 @@
-export type ProcessingStageId =
-  | 'downloading'
-  | 'transcribing'
-  | 'detecting-fallacies'
-  | 'fact-checking'
-  | 'generating-report';
+export type ProcessingStageId = 'downloading' | 'transcribing' | 'analyzing';
 
 export interface ProcessingStage {
   readonly id: ProcessingStageId;
@@ -13,9 +8,7 @@ export interface ProcessingStage {
 export const PROCESSING_STAGES: readonly ProcessingStage[] = [
   { id: 'downloading', label: 'Downloading video' },
   { id: 'transcribing', label: 'Transcribing audio' },
-  { id: 'detecting-fallacies', label: 'Detecting fallacies' },
-  { id: 'fact-checking', label: 'Fact-checking claims' },
-  { id: 'generating-report', label: 'Generating report' },
+  { id: 'analyzing', label: 'Analyzing debate' },
 ];
 
 export type StageState = 'pending' | 'active' | 'done';
@@ -25,4 +18,6 @@ export interface ProcessingStatus {
   readonly stageStates: Readonly<Record<ProcessingStageId, StageState>>;
   readonly progressPercent: number;
   readonly completed: boolean;
+  readonly failed: boolean;
+  readonly errorMessage: string | null;
 }
