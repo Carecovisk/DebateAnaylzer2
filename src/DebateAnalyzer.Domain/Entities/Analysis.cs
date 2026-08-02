@@ -20,4 +20,17 @@ public class Analysis
     public List<Fallacy> Fallacies { get; set; } = new();
     public List<Claim> Claims { get; set; } = new();
     public List<KeyMoment> KeyMoments { get; set; } = new();
+
+    public static Analysis Create(VideoMetadata video)
+    {
+        var now = DateTime.UtcNow;
+        return new Analysis
+        {
+            Id = Guid.NewGuid(),
+            Video = video,
+            Status = AnalysisStatus.Queued,
+            CreatedAt = now,
+            UpdatedAt = now
+        };
+    }
 }

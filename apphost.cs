@@ -3,9 +3,17 @@
 #:package Aspire.Hosting.PostgreSQL@13.4.6
 #:project src/DebateAnalyzer.Api/DebateAnalyzer.Api.csproj
 
+using Microsoft.Extensions.Hosting;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
 var postgres = builder.AddPostgres("postgres").WithDataVolume();
+
+if (builder.Environment.IsDevelopment())
+{
+    postgres.WithPgAdmin();
+}
+
 var debateAnalyzerDb = postgres.AddDatabase("debateanalyzerdb");
 
 var api = builder.AddProject<Projects.DebateAnalyzer_Api>("api")
