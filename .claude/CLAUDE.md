@@ -68,6 +68,20 @@ Formatting uses Prettier (`.prettierrc`).
   than leaving them inline in an event handler or larger method. Prefer a
   short orchestrating method that delegates to named steps over one method
   that inlines everything.
+- Avoid long chained method calls/expressions inlined directly into a
+  condition, return statement, or argument (e.g.
+  `query.TrimStart('?').Split('&', StringSplitOptions.RemoveEmptyEntries)` or
+  `uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps`).
+  Break them into intermediate variables or small private methods with
+  descriptive names instead, so the reader sees *what* each step means
+  without having to mentally evaluate the chain.
+- Before hand-rolling a utility (parsing, formatting, validation, etc.), check
+  whether an existing built-in .NET/BCL library already does it (e.g.
+  `System.Web.HttpUtility.ParseQueryString` for query-string parsing — it's
+  available in plain class libraries without any extra package or ASP.NET
+  Core reference). If nothing built-in covers it, prefer a well-established
+  external library over custom hand-rolled logic before writing it from
+  scratch.
 
 ## Notes
 - Target framework is `net10.0`; NuGet is restricted to `nuget.org` only (see `nuget.config`).
