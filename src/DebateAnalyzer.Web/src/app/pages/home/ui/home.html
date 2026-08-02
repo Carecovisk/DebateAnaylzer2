@@ -1,5 +1,6 @@
-<main
-  class="relative flex min-h-dvh items-center justify-center overflow-hidden bg-slate-950 px-6 py-24"
+<main class="bg-slate-950">
+<section
+  class="relative flex min-h-dvh items-center justify-center overflow-hidden px-6 py-24"
 >
   <!-- ambient gradient glows -->
   <div class="pointer-events-none absolute inset-0">
@@ -86,8 +87,52 @@
 
     </form>
 
+    <div class="mt-6 flex w-full max-w-xl flex-wrap items-center justify-center gap-2">
+      <span class="text-xs text-slate-500">Try:</span>
+      @for (sample of sampleDebates; track sample.url) {
+        <button
+          type="button"
+          (click)="selectSampleDebate(sample)"
+          class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-slate-300 backdrop-blur transition hover:border-indigo-400/60 hover:bg-white/10 hover:text-white"
+        >
+          {{ sample.title }}
+        </button>
+      }
+    </div>
+
     <p class="mt-6 text-xs text-slate-500">
       No sign-up needed to try your first analysis.
     </p>
   </div>
+</section>
+
+<section class="relative overflow-hidden px-6 py-24">
+  <div class="mx-auto max-w-5xl">
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+        Everything you need to
+        <span
+          class="bg-gradient-to-r from-indigo-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent"
+        >
+          watch smarter
+        </span>
+      </h2>
+      <p class="mt-4 text-lg text-slate-400">
+        Every analysis runs through the same core pipeline, built to surface what matters
+        in a debate.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-6 sm:grid-cols-3">
+      @for (feature of coreFeatures; track feature.title) {
+        <div
+          class="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur transition hover:border-indigo-400/40 hover:bg-white/10"
+        >
+          <h3 class="text-lg font-semibold text-white">{{ feature.title }}</h3>
+          <p class="mt-2 text-sm text-slate-400">{{ feature.description }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
 </main>
